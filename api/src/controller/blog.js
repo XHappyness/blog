@@ -13,11 +13,13 @@ function getList(author, keyword) {
 
 function getDetail(id) {
     let sql = `select * from blogs where id=${id}`
-    return exec(sql);
+    return exec(sql)
 }
 
 function newBlog(body = {}) {
-    return { body }
+    const { title, content, createtime, author } = body
+    let sql = `insert into blogs (title, content, createtime, author) values ("${title}","${content}",${createtime},"${author}")`
+    return exec(sql).then(insertInfo => insertInfo.insertId)
 }
 
 function updateBlog(id, body = {}) {
