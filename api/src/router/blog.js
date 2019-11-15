@@ -20,8 +20,11 @@ const handleBlogRouter = (req, res) => {
 
     // 获取博客详情
     if (method === "GET" && path === "/api/blog/detail") {
-        const blog = getDetail(id)
-        return new SuccessModel(blog)
+        return getDetail(id).then(blog => {
+            return new SuccessModel(blog)
+        }).catch(err => {
+            return new ErrorModel(err)
+        })
     }
 
     // 新建博客

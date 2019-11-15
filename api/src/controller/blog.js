@@ -1,9 +1,9 @@
 const { exec } = require("../db/mysql")
 
 function getList(author, keyword) {
-    let sql = "select * from blogs where 1=1"
+    let sql = "select * from blogs where 1=1 "
     if (author) {
-        sql += `and author=${author}`
+        sql += `and author="${author}" `
     }
     if (keyword) {
         sql += `and title like "%${keyword}%"`
@@ -12,13 +12,8 @@ function getList(author, keyword) {
 }
 
 function getDetail(id) {
-    return {
-        id: 1,
-        title: "标题1",
-        content: "内容1",
-        createTime: 1546610491112,
-        author: "xuehaoshaung"
-    }
+    let sql = `select * from blogs where id=${id}`
+    return exec(sql);
 }
 
 function newBlog(body = {}) {
