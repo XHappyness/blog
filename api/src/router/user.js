@@ -9,7 +9,7 @@ const handleUserRouter = (req, res) => {
     if (method === "GET" && path === "/api/user/login") {
         return login(req.query.name, req.query.psd).then(user => {
             if (user.username) {
-                res.setHeader("Set-Cookie", `username=${user.username};path=/`);
+                res.setHeader("Set-Cookie", `username=${user.username};path=/;httpOnly`);
                 return new SuccessModel("登录成功")
             } else {
                 return new ErrorModel("用户名或密码错误")

@@ -42,8 +42,8 @@ const serverHandle = (req, res) => {
     cookiesStr.split(";").forEach(item => {
         if (!item) return
         const arr = item.split("=")
-        const key = arr[0]
-        const value = arr[1]
+        const key = arr[0].trim()
+        const value = arr[1].trim()
         req.cookies[key] = value
     });
 
