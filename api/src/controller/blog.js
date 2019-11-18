@@ -19,15 +19,29 @@ function getDetail(id) {
 function newBlog(body = {}) {
     const { title, content, createtime, author } = body
     let sql = `insert into blogs (title, content, createtime, author) values ("${title}","${content}",${createtime},"${author}")`
-    return exec(sql).then(insertInfo => insertInfo.insertId)
+    return exec(sql).then(insertInfo => ({ id: insertInfo.insertId }))
 }
 
 function updateBlog(id, body = {}) {
-    return true
+    let sql = `update blogs set title="${body.title}",content="${body.content}" where id=${id}`
+    return exec(sql).then(updata => {
+        if (updata.affectedRows > 0) {
+            return true
+        } else {
+            return false
+        }
+    })
 }
 
-function deleteBlog(id) {
-    return false
+function deleteBlog(id, author) {
+    let sql = `delete from blogs where id=${id} and author="${author}"`
+    return exec(sql).then(updata => {
+        if (updata.affectedRows > 0) {
+            return true
+        } else {
+            return false
+        }
+    })
 }
 
 module.exports = {

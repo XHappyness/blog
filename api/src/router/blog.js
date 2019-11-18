@@ -37,22 +37,25 @@ const handleBlogRouter = (req, res) => {
     }
     // 修改博客
     if (method === "POST" && path === "/api/blog/update") {
-        const result = updateBlog(id, req.body)
-        if (result) {
-            return new SuccessModel()
-        } else {
-            return new ErrorModel("新增博客失败")
-        }
+        return updateBlog(id, req.body).then(result => {
+            if (result) {
+                return new SuccessModel()
+            } else {
+                return new ErrorModel("新增博客失败")
+            }
+        })
     }
 
     // 删除博客
     if (method === "POST" && path === "/api/blog/del") {
-        const result = deleteBlog(id)
-        if (result) {
-            return new SuccessModel("成功")
-        } else {
-            return new ErrorModel("删除博客失败")
-        }
+        const author = "新作2者";
+        return deleteBlog(id, author).then(result => {
+            if (result) {
+                return new SuccessModel("成功")
+            } else {
+                return new ErrorModel("删除博客失败")
+            }
+        })
     }
 }
 
