@@ -50,14 +50,13 @@ const serverHandle = (req, res) => {
 
 
         // 处理user路由
-        const userResult = handleBlogRouter(req, res)
+        const userResult = handleUserRouter(req, res)
         if (userResult) {
             userResult.then(userData => {
                 res.end(JSON.stringify(userData))
             })
             return;
         }
-        
         // 未命中路由，返回404
         res.writeHead(404, { "Content-type": "text/plain" })
         res.write("404 Not Found\n")
