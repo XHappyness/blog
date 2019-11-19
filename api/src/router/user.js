@@ -1,5 +1,6 @@
 const { SuccessModel, ErrorModel } = require("../model/resModel")
 const { login } = require("../controller/user.js")
+const { setRedis } = require("../db/redis")
 
 const handleUserRouter = (req, res) => {
     const method = req.method
@@ -10,8 +11,14 @@ const handleUserRouter = (req, res) => {
         return login(req.query.name, req.query.psd).then(user => {
             if (user.username) {
                 // 设置session
-                req.session.username = user.username
-                req.session.realname = user.realname
+                // req.session.username = user.username
+                // req.session.realname = user.realname
+                const userObj = {
+                    username: user.username,
+                    realname: user.realname
+                }
+                // 同步redis
+                setRedis(req.sessionId, userObj)
                 return new SuccessModel("登录成功")
             } else {
                 return new ErrorModel("用户名或密码错误")
