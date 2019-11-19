@@ -7,8 +7,8 @@ const handleUserRouter = (req, res) => {
     const path = req.path
 
     // 登录
-    if (method === "GET" && path === "/api/user/login") {
-        return login(req.query.name, req.query.psd).then(user => {
+    if (method === "POST" && path === "/api/user/login") {
+        return login(req.body.name, req.body.psd).then(user => {
             if (user.username) {
                 // 设置session；同步redis
                 const userObj = {
@@ -24,13 +24,13 @@ const handleUserRouter = (req, res) => {
     }
 
     // 登录验证
-    if (method === "GET" && path === "/api/user/login-test") {
-        if (req.session.username) {
-            return Promise.resolve(new SuccessModel(`${req.session.username}已经登录`))
-        } else {
-            return Promise.resolve(new ErrorModel(`尚未登录`))
-        }
-    }
+    // if (method === "GET" && path === "/api/user/login-test") {
+    //     if (req.session.username) {
+    //         return Promise.resolve(new SuccessModel(`${req.session.username}已经登录`))
+    //     } else {
+    //         return Promise.resolve(new ErrorModel(`尚未登录`))
+    //     }
+    // }
 }
 
 module.exports = handleUserRouter
