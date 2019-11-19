@@ -1,4 +1,5 @@
 const redis = require("redis")
+// 要先去安装目录下redis-server.exe
 
 // 创建客户端
 const redisClient = redis.createClient(6379, "127.0.0.1")
@@ -18,4 +19,9 @@ redisClient.get("myname", (err, val) => {
     // 退出
     redisClient.quit()
 })
-console.log("执行")
+/**
+ * 测试的话也可以到安装目录下redis-cli, 然后使用
+ * set(key,value) 设置key
+ * get(key) 获取key
+ * keys *  查看全部key
+ */
