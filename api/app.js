@@ -59,14 +59,6 @@ const serverHandle = (req, res) => {
     // 解析session
     let userId = req.cookies.userid
     let needSetCookieUserid = false
-    // if (userId) {
-    //     if (!SESSION_DATA[userId]) SESSION_DATA[userId] = {}
-    // } else {
-    //     needSetCookieUserid = true
-    //     userId = `${Date.now()}_${Math.random()}`
-    //     SESSION_DATA[userId] = {}
-    // }
-    // req.session = SESSION_DATA[userId]
     if (!userId) {
         needSetCookieUserid = true
         userId = `${Date.now()}_${Math.random()}`
@@ -75,9 +67,7 @@ const serverHandle = (req, res) => {
     }
     // 获取session
     req.sessionId = userId
-    console.log(userId)
     getRedis(req.sessionId).then(sessionData => {
-        console.log(sessionData)
         if (sessionData == null) {
             setRedis(req.sessionId, {})
             req.session = {}

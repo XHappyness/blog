@@ -10,14 +10,11 @@ const handleUserRouter = (req, res) => {
     if (method === "GET" && path === "/api/user/login") {
         return login(req.query.name, req.query.psd).then(user => {
             if (user.username) {
-                // 设置session
-                // req.session.username = user.username
-                // req.session.realname = user.realname
+                // 设置session；同步redis
                 const userObj = {
                     username: user.username,
                     realname: user.realname
                 }
-                // 同步redis
                 setRedis(req.sessionId, userObj)
                 return new SuccessModel("登录成功")
             } else {
