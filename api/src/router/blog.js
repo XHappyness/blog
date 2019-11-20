@@ -1,6 +1,12 @@
 const { SuccessModel, ErrorModel } = require("../model/resModel")
 const { getList, getDetail, newBlog, updateBlog, deleteBlog } = require("../controller/blog.js")
 
+function loginCheck(req) {
+    if (!req.session.username) {
+        return Promise.resolve(new ErrorModel(`尚未登录`))
+    }
+}
+
 const handleBlogRouter = (req, res) => {
     const method = req.method;
     const path = req.path;
@@ -29,6 +35,10 @@ const handleBlogRouter = (req, res) => {
 
     // 新建博客
     if (method === "POST" && path === "/api/blog/new") {
+        const loginCheckResult = loginCheck(req)
+        if (loginCheckResult) {
+            return loginCheckResult
+        }
         return newBlog(req.body).then(obj => {
             return new SuccessModel(obj)
         }).catch(err => {
@@ -37,6 +47,10 @@ const handleBlogRouter = (req, res) => {
     }
     // 修改博客
     if (method === "POST" && path === "/api/blog/update") {
+        const loginCheckResult = loginCheck(req)
+        if (loginCheckResult) {
+            return loginCheckResult
+        }
         return updateBlog(id, req.body).then(result => {
             if (result) {
                 return new SuccessModel()
@@ -48,7 +62,11 @@ const handleBlogRouter = (req, res) => {
 
     // 删除博客
     if (method === "POST" && path === "/api/blog/del") {
-        const author = "新作2者";
+        const loginCheckResult = loginCheck(req)
+        if (loginCheckResult) {
+            return loginCheckResult
+        }
+        const author = req.session.username;
         return deleteBlog(id, author).then(result => {
             if (result) {
                 return new SuccessModel("成功")
