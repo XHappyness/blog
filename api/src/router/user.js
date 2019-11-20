@@ -7,7 +7,6 @@ const handleUserRouter = (req, res) => {
     const path = req.path
 
     // 注册
-
     if (method === "POST" && path === "/api/user/register") {
         return register(req.body.name, req.body.psd).then(user => {
             if (user.username) {

@@ -3,7 +3,7 @@
     <Header>
       <div class="logo" @click="toIndex">博客系统</div>
       <div class="user">
-        <span class="text-btn" v-if="userName">我的博客</span>
+        <span class="text-btn" v-if="userName">{{userName}}</span>
         <div v-else>
           <span class="text-btn" @click="openModal(0)">登录</span>
           <span class="text-btn" @click="openModal(1)">注册</span>
@@ -49,7 +49,7 @@ export default {
   name: "home",
   computed: {
     userName() {
-      return this.$store.state.userName;
+      return this.$store.state.userName || localStorage.getItem("userName");
     }
   },
   data() {
@@ -113,6 +113,7 @@ export default {
           }
           if (res.errno === -1) return;
           this.showModal = false;
+          this.$store.commit("upUserName", this.userInfor.name);
         }
       });
     }

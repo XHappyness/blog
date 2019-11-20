@@ -9,6 +9,7 @@ const state = {
 const mutations = {
     upUserName(state, userName) {
         state.userName = userName;
+        localStorage.setItem("userName", userName)
     }
 }
 
