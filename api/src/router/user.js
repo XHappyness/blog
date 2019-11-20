@@ -1,10 +1,22 @@
 const { SuccessModel, ErrorModel } = require("../model/resModel")
-const { login } = require("../controller/user.js")
+const { register, login } = require("../controller/user.js")
 const { setRedis } = require("../db/redis")
 
 const handleUserRouter = (req, res) => {
     const method = req.method
     const path = req.path
+
+    // 注册
+
+    if (method === "POST" && path === "/api/user/register") {
+        return register(req.body.name, req.body.psd).then(user => {
+            if (user.username) {
+                return new ErrorModel("用户名已经存在")
+            } else {
+                return new SuccessModel("注册成功")
+            }
+        })
+    }
 
     // 登录
     if (method === "POST" && path === "/api/user/login") {
