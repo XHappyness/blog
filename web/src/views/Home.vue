@@ -18,9 +18,9 @@ export default {
   computed: {
     pageName() {
       if (this.$route.path.indexOf("/taskList") !== -1) {
-        return "任务列表";
+        return "博客列表";
       } else {
-        return "任务配置";
+        return "博客编辑";
       }
     }
   },

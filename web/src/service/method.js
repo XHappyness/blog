@@ -13,11 +13,10 @@ axios.interceptors.request.use(
 )
 axios.interceptors.response.use(
     response => {
-        // 下载的接口返回不包含responseCode
-        if (response.data.responseCode && response.data.responseCode !== '00') {
+        if (response.data.errno && response.data.errno !== 0) {
             iView.Notice.error({
                 title: '错误',
-                desc: response.data.responseMsg ? response.data.responseMsg : '系统内部错误'
+                desc: response.data.message ? response.data.message : '系统内部错误'
             })
             return Promise.reject(response.data)
         } else {

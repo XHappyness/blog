@@ -1,7 +1,7 @@
 const path = require('path')
 
 //开发api请求路径
-const devProxy = "http://172.16.21.71:8282"
+const devProxy = "http://localhost:3000"
 
 const resolve = dir => {
     return path.join(__dirname, dir)

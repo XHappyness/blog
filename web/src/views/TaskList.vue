@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="add">
-      <Button type="primary" @click="toConfig">新增任务</Button>
+      <Button type="primary" @click="toConfig">新增博客</Button>
     </div>
     <Table :columns="tableColumns" :data="tableData" border></Table>
   </div>
@@ -22,24 +22,20 @@ export default {
           }
         },
         {
-          title: "任务名称",
-          key: "taskName"
+          title: "标题",
+          key: "title"
         },
         {
-          title: "任务状态",
-          key: "status"
+          title: "内容",
+          key: "content"
         },
         {
-          title: "开始时间",
-          key: "startTime"
+          title: "创建时间",
+          key: "createtime"
         },
         {
-          title: "结束时间",
-          key: "endTime"
-        },
-        {
-          title: "执行人",
-          key: "operator"
+          title: "作者",
+          key: "author"
         }
       ]
     };
@@ -49,9 +45,9 @@ export default {
       this.$router.push("/config");
     },
     async getTableData() {
-      const res = await this.$service.getExportTasks();
-      if (res.responseCode !== "00") return;
-      this.tableData = res.content;
+      const res = await this.$service.getBlogs();
+      if (res.errno === -1) return;
+      this.tableData = res.data;
     }
   },
   created() {
