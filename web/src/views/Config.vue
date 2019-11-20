@@ -376,18 +376,6 @@ export default {
 
 <style lang="less" scoped>
 .config {
-  .text-btn {
-    margin-left: 8px;
-    cursor: pointer;
-    font-size: 14px;
-    color: #2d8cf0;
-    &:hover {
-      color: #5cadff;
-    }
-    &.ivu-icon {
-      font-size: 18px;
-    }
-  }
   .company-config {
     margin-bottom: 20px;
     display: flex;

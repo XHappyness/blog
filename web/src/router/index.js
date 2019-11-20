@@ -11,16 +11,18 @@ export default new VueRouter(
         path: '/',
         name: 'home',
         component: Home,
-        redirect: '/taskList',
+        redirect: '/allBlogs',
         children: [
           {
-            path: '/taskList',
-            name: 'taskList',
-            component: () => import(/* webpackChunkName: "taskList" */ '../views/TaskList.vue')
+            path: '/allBlogs',
+            name: 'allBlogs',
+            meta: { pageName: "博客列表" },
+            component: () => import(/* webpackChunkName: "allBlogs" */ '../views/AllBlogs.vue')
           },
           {
             path: '/config',
             name: 'config',
+            meta: { pageName: "配置页面" },
             component: () => import(/* webpackChunkName: "config" */ '../views/Config.vue')
           }
         ]

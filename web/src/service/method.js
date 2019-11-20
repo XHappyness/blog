@@ -43,7 +43,7 @@ let httpMethod = {
                     .then(data => {
                         resolve(data)
                     }).catch(error => {
-                        resolve()
+                        resolve({ errno: -1 })
                     })
             })
         }
@@ -54,7 +54,7 @@ let httpMethod = {
                     resolve(data)
                     iView.LoadingBar.finish()
                 }).catch(error => {
-                    resolve()
+                    resolve({ errno: -1 })
                     iView.LoadingBar.error()
                 })
         })
@@ -69,7 +69,7 @@ let httpMethod = {
                         resolve(data)
                     })
                     .catch(error => {
-                        resolve()
+                        resolve({ errno: -1 })
                     })
             })
         }
@@ -83,7 +83,7 @@ let httpMethod = {
                     iView.LoadingBar.finish()
                 })
                 .catch(error => {
-                    resolve()
+                    resolve({ errno: -1 })
                     iView.LoadingBar.error()
                 })
         })
