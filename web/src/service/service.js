@@ -1,7 +1,9 @@
 import httpMethod from './method';
 let { getService, postService } = httpMethod;
 const user = {
-    register: (userInfo) => postService("/api/user/register", userInfo)
+    register: (userInfo) => postService("/api/user/register", userInfo),
+    logout: (name) => postService("/api/user/logout", { name }),
+    login: (userInfo) => postService("/api/user/login", userInfo)
 }
 export default {
     getBlogs: () => getService('/api/blog/list'),

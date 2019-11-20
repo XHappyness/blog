@@ -33,7 +33,12 @@ function getRedis(key) {
     })
 }
 
+function deleRedis(key) {
+    redisClient.del(key)
+}
+
 module.exports = {
     setRedis,
-    getRedis
+    getRedis,
+    deleRedis
 }

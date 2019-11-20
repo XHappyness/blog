@@ -3,7 +3,14 @@
     <Header>
       <div class="logo" @click="toIndex">博客系统</div>
       <div class="user">
-        <span class="text-btn" v-if="userName">{{userName}}</span>
+        <Dropdown v-if="userName" @on-click="toMyBlog">
+          <span class="text-btn">{{userName}}</span>
+          <DropdownMenu slot="list">
+            <DropdownItem :name="dropDownEnum.myblog">我的博客</DropdownItem>
+            <DropdownItem :name="dropDownEnum.logout" divided>退出登录</DropdownItem>
+          </DropdownMenu>
+        </Dropdown>
+
         <div v-else>
           <span class="text-btn" @click="openModal(0)">登录</span>
           <span class="text-btn" @click="openModal(1)">注册</span>
@@ -54,6 +61,10 @@ export default {
   },
   data() {
     return {
+      dropDownEnum: Object.freeze({
+        myblog: 0,
+        logout: 1
+      }),
       // 0登录 1注册
       loginType: 0,
       showModal: false,
@@ -106,7 +117,7 @@ export default {
           let res;
           if (this.loginType === 0) {
             // 登录
-            res = await this.$service.login(userInfor);
+            res = await this.$service.login(this.userInfor);
           } else {
             // 注册
             res = await this.$service.register(this.userInfor);
@@ -116,6 +127,15 @@ export default {
           this.$store.commit("upUserName", this.userInfor.name);
         }
       });
+    },
+    toMyBlog(name) {
+      if (name === this.dropDownEnum.myblog) {
+        this.$router.push("/blog/myblogs");
+      } else {
+        const res = this.$service.logout(this.userName);
+        if (res.errno === -1) return;
+        this.$store.commit("upUserName", "");
+      }
     }
   }
 };

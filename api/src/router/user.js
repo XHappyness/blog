@@ -1,6 +1,6 @@
 const { SuccessModel, ErrorModel } = require("../model/resModel")
 const { register, login } = require("../controller/user.js")
-const { setRedis } = require("../db/redis")
+const { setRedis, deleRedis } = require("../db/redis")
 
 const handleUserRouter = (req, res) => {
     const method = req.method
@@ -32,6 +32,15 @@ const handleUserRouter = (req, res) => {
                 return new ErrorModel("用户名或密码错误")
             }
         })
+    }
+    // 登出
+    if (method === "POST" && path === "/api/user/logout") {
+        if (req.body.name && req.sessionId) {
+            deleRedis(req.sessionId)
+            return Promise.resolve(new SuccessModel(`退出登录成功`))
+        } else {
+            return Promise.resolve(new ErrorModel(`退出失败`))
+        }
     }
 
     // 登录验证

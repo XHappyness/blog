@@ -11,18 +11,21 @@ export default new VueRouter(
         path: '/',
         name: 'home',
         component: Home,
-        redirect: '/allBlogs',
+        redirect: '/blog/allBlogs',
         children: [
           {
-            path: '/allBlogs',
+            path: '/blog/allBlogs',
             name: 'allBlogs',
-            meta: { pageName: "博客列表" },
             component: () => import(/* webpackChunkName: "allBlogs" */ '../views/AllBlogs.vue')
+          },
+          {
+            path: '/blog/myblogs',
+            name: 'myblogs',
+            component: () => import(/* webpackChunkName: "myblogs" */ '../views/AllBlogs.vue')
           },
           {
             path: '/config',
             name: 'config',
-            meta: { pageName: "配置页面" },
             component: () => import(/* webpackChunkName: "config" */ '../views/Config.vue')
           }
         ]
