@@ -130,7 +130,7 @@ export default {
     },
     dropdownClick(name) {
       if (name === this.dropDownEnum.myblog) {
-        this.$router.push("/blog/myblogs");
+        this.$router.push("/blog/myBlogs");
       } else {
         const res = this.$service.logout(this.userName);
         if (res.errno === -1) return;

@@ -44,7 +44,7 @@ export default {
       return this.$store.state.userName || localStorage.getItem("userName");
     },
     isMyBlogs() {
-      return this.userName && this.$route.path === "/blog/myblogs";
+      return this.userName && this.$route.path === "/blog/myBlogs";
     }
   },
   data() {
