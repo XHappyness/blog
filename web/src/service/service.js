@@ -6,7 +6,9 @@ const user = {
     login: (userInfo) => postService("/api/user/login", userInfo)
 }
 export default {
-    getBlogs: () => getService('/api/blog/list'),
+    getBlogs: (author) => getService('/api/blog/list', {
+        params: { author }
+    }),
     getAllInterfaces: () => getService('/domain/stratehy'),
     postConfig: (config) => postService("/v1/export", config),
     downExcel: () => getService('/import/example'),

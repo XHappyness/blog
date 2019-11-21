@@ -3,7 +3,7 @@
     <Header>
       <div class="logo" @click="toIndex">博客系统</div>
       <div class="user">
-        <Dropdown v-if="userName" @on-click="toMyBlog">
+        <Dropdown v-if="userName" @on-click="dropdownClick">
           <span class="text-btn">{{userName}}</span>
           <DropdownMenu slot="list">
             <DropdownItem :name="dropDownEnum.myblog">我的博客</DropdownItem>
@@ -128,13 +128,17 @@ export default {
         }
       });
     },
-    toMyBlog(name) {
+    dropdownClick(name) {
       if (name === this.dropDownEnum.myblog) {
         this.$router.push("/blog/myblogs");
       } else {
         const res = this.$service.logout(this.userName);
         if (res.errno === -1) return;
         this.$store.commit("upUserName", "");
+        //如果在我的页面，则退回到主页
+        if (this.$route.path === "/blog/myblogs") {
+          this.$router.push("/blog/allblogs");
+        }
       }
     }
   }

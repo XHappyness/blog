@@ -1,11 +1,11 @@
 <template>
   <div>
     <div class="page-name">
-      <div>{{$route.meta.pageName}}</div>
-      <Button type="primary" @click="toConfig">新增博客</Button>
+      <div>{{isMyBlogs?"我的博客":"博客首页"}}</div>
+      <Button type="primary" @click="toConfig" v-if="isMyBlogs">新增博客</Button>
     </div>
     <Card>
-      <List>
+      <List v-show="tableData.length>0">
         <ListItem v-for="blog of tableData" :key="blog.id">
           <ListItemMeta
             avatar="https://dev-file.iviewui.com/userinfoPDvn9gKWYihR24SpgC319vXY8qniCqj4/avatar"
@@ -19,25 +19,34 @@
             </template>
           </ListItemMeta>
           <template slot="action">
-            <li>
-              <a href>详情</a>
-            </li>
-            <li>
+            <li v-if="blog.author===userName">
               <a href>编辑</a>
             </li>
-            <li>
+            <li v-if="blog.author===userName">
               <a href>删除</a>
+            </li>
+            <li>
+              <a href>详情</a>
             </li>
           </template>
         </ListItem>
       </List>
+      <div v-show="tableData.length===0">这个人懒得很，什么都木有留下~_~···</div>
     </Card>
   </div>
 </template>
 
 <script>
 export default {
-  name: "AllBlogs",
+  name: "BlogList",
+  computed: {
+    userName() {
+      return this.$store.state.userName || localStorage.getItem("userName");
+    },
+    isMyBlogs() {
+      return this.userName && this.$route.path === "/blog/myblogs";
+    }
+  },
   data() {
     return {
       tableData: []
@@ -48,13 +57,18 @@ export default {
       this.$router.push("/config");
     },
     async getTableData() {
-      const res = await this.$service.getBlogs();
+      const res = await this.$service.getBlogs(this.userName);
       if (res.errno === -1) return;
       this.tableData = res.data;
     }
   },
   created() {
     this.getTableData();
+  },
+  watch: {
+    $router(to, from) {
+      console.log(to);
+    }
   }
 };
 </script>

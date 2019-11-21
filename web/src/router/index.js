@@ -16,12 +16,17 @@ export default new VueRouter(
           {
             path: '/blog/allBlogs',
             name: 'allBlogs',
-            component: () => import(/* webpackChunkName: "allBlogs" */ '../views/AllBlogs.vue')
+            component: () => import(/* webpackChunkName: "allBlogs" */ '../views/BlogList.vue')
           },
           {
-            path: '/blog/myblogs',
-            name: 'myblogs',
-            component: () => import(/* webpackChunkName: "myblogs" */ '../views/AllBlogs.vue')
+            path: '/blog/myBlogs',
+            name: 'myBlogs',
+            component: () => import(/* webpackChunkName: "myBlogs" */ '../views/BlogList.vue')
+          },
+          {
+            path: '/blog/otherBlogs',
+            name: 'otherBlogs',
+            component: () => import(/* webpackChunkName: "otherBlogs" */ '../views/BlogList.vue')
           },
           {
             path: '/config',
