@@ -19,10 +19,10 @@
             </template>
           </ListItemMeta>
           <template slot="action">
-            <li v-if="blog.author===userName">
+            <li v-if="blog.author===isMyBlogs">
               <a href>编辑</a>
             </li>
-            <li v-if="blog.author===userName">
+            <li v-if="blog.author===isMyBlogs">
               <a href>删除</a>
             </li>
             <li>
@@ -57,7 +57,8 @@ export default {
       this.$router.push("/config");
     },
     async getTableData() {
-      const res = await this.$service.getBlogs(this.userName);
+      const username = this.isMyBlogs ? this.userName : this.$route.query.author;
+      const res = await this.$service.getBlogs(username);
       if (res.errno === -1) return;
       this.tableData = res.data;
     }
