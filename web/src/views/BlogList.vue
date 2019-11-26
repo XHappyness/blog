@@ -15,7 +15,8 @@
               <div class="description">
                 <div class="author">
                   作者：
-                  <span class="text-btn" @click="toAuthorPage(blog.author)">{{blog.author}}</span>
+                  <span v-if="pageType!==pageTypeEnum.all">{{blog.author}}</span>
+                  <span v-else class="text-btn" @click="toAuthorPage(blog.author)">{{blog.author}}</span>
                 </div>
                 <div class="time">创建时间：{{blog.createtime}}</div>
               </div>
@@ -34,7 +35,7 @@
           </template>
         </ListItem>
       </List>
-      <div v-show="tableData.length===0">这个人懒得很，什么都木有留下~_~···</div>
+      <div v-show="tableData.length===0">{{noDataText}}</div>
     </Card>
   </div>
 </template>
@@ -62,6 +63,13 @@ export default {
         : this.pageType === this.pageTypeEnum.other
         ? `${this.$route.query.author || "-"}的博客`
         : "博客首页";
+    },
+    noDataText() {
+      return this.pageType === this.pageTypeEnum.my
+        ? "你还没有博客，快去创建一篇吧=͟͟͞͞➳❥"
+        : this.pageType === this.pageTypeEnum.other
+        ? `这个人懒得很，什么都木有留下~_~···\n去别人家看看吧`
+        : "哇哦，竟然是空的，你来当博客第一人，去创建一篇吧！";
     }
   },
   data() {
@@ -99,7 +107,7 @@ export default {
   },
   watch: {
     "$route.path"(to, from) {
-      console.log(to);
+      this.getTableData();
     }
   }
 };
