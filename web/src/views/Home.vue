@@ -13,7 +13,7 @@
 
         <div v-else>
           <span class="text-btn" @click="openModal(0)">登录</span>
-          <span class="text-btn" @click="openModal(1)">注册</span>
+          <span class="text-btn" style="margin-left:8px;" @click="openModal(1)">注册</span>
         </div>
       </div>
     </Header>
@@ -43,7 +43,7 @@
       <div slot="footer">
         <Button
           type="primary"
-          style="width:100%"
+          style="width:100%;"
           @click="loginOrRegister()"
         >{{loginType===0?'登录':'注册'}}</Button>
       </div>
@@ -56,7 +56,15 @@ export default {
   name: "home",
   computed: {
     userName() {
-      return this.$store.state.userName || localStorage.getItem("userName");
+      return this.$store.getters.userName;
+    },
+    showModal: {
+      get() {
+        return this.$store.state.showLogin;
+      },
+      set(val) {
+        this.$store.commit("upShowLogin", val);
+      }
     }
   },
   data() {
@@ -67,7 +75,6 @@ export default {
       }),
       // 0登录 1注册
       loginType: 0,
-      showModal: false,
       userInfor: {
         name: "",
         psd: ""
@@ -135,10 +142,7 @@ export default {
         const res = this.$service.logout(this.userName);
         if (res.errno === -1) return;
         this.$store.commit("upUserName", "");
-        //如果在我的页面，则退回到主页
-        if (this.$route.path === "/blog/myblogs") {
-          this.$router.push("/blog/allblogs");
-        }
+        this.$router.push("/blog/allblogs");
       }
     }
   }

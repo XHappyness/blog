@@ -1,10 +1,11 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import store from "@/store"
 
 Vue.use(VueRouter)
 
-export default new VueRouter(
+const router = new VueRouter(
   {
     routes: [
       {
@@ -20,6 +21,9 @@ export default new VueRouter(
           },
           {
             path: '/blog/myBlogs',
+            meta: {
+              needLogin: true
+            },
             name: 'myBlogs',
             component: () => import(/* webpackChunkName: "myBlogs" */ '../views/BlogList.vue')
           },
@@ -38,3 +42,16 @@ export default new VueRouter(
     ]
   }
 )
+
+router.beforeEach((to, from, next) => {
+  const username = store.getters.userName
+  if (to.meta.needLogin && !username) {
+    store.commit("upShowLogin", true)
+    next(false)
+  } else {
+    next()
+  }
+})
+
+
+export default router;
