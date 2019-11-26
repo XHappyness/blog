@@ -30,7 +30,7 @@
               <a href>删除</a>
             </li>
             <li>
-              <a href>详情</a>
+              <span class="text-btn" @click="$router.push(`/blog/detail/${blog.id}`)">详情</span>
             </li>
           </template>
         </ListItem>

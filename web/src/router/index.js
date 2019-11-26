@@ -33,9 +33,9 @@ const router = new VueRouter(
             component: () => import(/* webpackChunkName: "otherBlogs" */ '../views/BlogList.vue')
           },
           {
-            path: '/config',
-            name: 'config',
-            component: () => import(/* webpackChunkName: "config" */ '../views/Config.vue')
+            path: '/blog/detail/:id',
+            name: 'blogDetail',
+            component: () => import(/* webpackChunkName: "blogDetail" */ '../views/BlogDetail.vue')
           }
         ]
       }
