@@ -14,6 +14,7 @@ const blog = {
     }),
     addBLog: (bolg) => postService('/api/blog/new', bolg),
     upBlog: (bolg) => postService('/api/blog/update', bolg),
+    deleteBolg: (id) => postService('/api/blog/del', { id }),
 }
 export default {
     ...user,

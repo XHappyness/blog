@@ -6,7 +6,7 @@
     </div>
     <Card>
       <List v-show="tableData.length>0">
-        <ListItem v-for="blog of tableData" :key="blog.id">
+        <ListItem v-for="(blog,index) of tableData" :key="blog.id">
           <ListItemMeta :title="blog.title">
             <template slot="avatar">
               <div>123</div>
@@ -27,7 +27,7 @@
               <span class="text-btn" @click="changeRouter(`/blog/update/${blog.id}`)">编辑</span>
             </li>
             <li v-if="blog.author===userName">
-              <a href>删除</a>
+              <span class="text-btn" @click="deleteBolg(blog.id,index)">删除</span>
             </li>
             <li>
               <span class="text-btn" @click="changeRouter(`/blog/detail/${blog.id}`)">详情</span>
@@ -92,6 +92,11 @@ export default {
       } else {
         this.$router.push({ path: "/blog/otherBlogs", query: { author } });
       }
+    },
+    async deleteBolg(id, index) {
+      const res = await this.$service.deleteBolg(id);
+      if (res.errno === -1) return;
+      this.tableData.splice(index, 1);
     },
     async getTableData() {
       const username = this.isMyBlogs

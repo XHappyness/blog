@@ -10,7 +10,7 @@ function getPostData(req) {
             resolve({})
             return
         }
-        if (req.headers["content-type"].indexOf("application/json") === -1) {
+        if (req.headers["content-type"] && req.headers["content-type"].indexOf("application/json") === -1) {
             resolve({})
             return
         }
