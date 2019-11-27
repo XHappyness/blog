@@ -151,6 +151,9 @@ export default {
 
 <style lang="less">
 .home {
+  &.ivu-layout {
+    background: rgba(255, 255, 255, 0);
+  }
   .logo {
     cursor: pointer;
     background: url("~@/assets/siyecao.jpg") no-repeat;
@@ -163,16 +166,24 @@ export default {
     font-weight: bold;
   }
   .ivu-layout-header {
-    background-color: #fff;
+    background-color: rgba(255, 255, 255, 0.6);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.6);
     box-shadow: 0px 2;
+    height: 45px;
+    line-height: 45px;
   }
   .ivu-layout-content {
     min-height: calc(100vh - 64px);
     padding: 0 50px !important;
+  }
+  .ivu-card {
+    background-color: rgba(255, 255, 255, 0.6);
+  }
+  .ivu-card-bordered {
+    border: 1px solid rgba(255, 255, 255, 0.2);
   }
   .ivu-card-body {
     height: calc(100vh - 64px - 90px);

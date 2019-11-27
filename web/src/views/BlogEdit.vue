@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="page-title">{{operateTypeName}}</div>
+    <div class="page-name">{{operateTypeName}}</div>
     <Card>
       <Form ref="formValidate" :model="blogForm" :rules="blogFormRule" :label-width="80">
         <FormItem label="标题" prop="title">
