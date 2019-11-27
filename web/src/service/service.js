@@ -12,6 +12,8 @@ const blog = {
     getBlogDetail: (id) => getService('/api/blog/detail', {
         params: { id }
     }),
+    addBLog: (bolg) => postService('/api/blog/new', bolg),
+    upBlog: (bolg) => postService('/api/blog/update', bolg),
 }
 export default {
     ...user,

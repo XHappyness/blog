@@ -38,7 +38,13 @@ const handleBlogRouter = (req, res) => {
         if (loginCheckResult) {
             return loginCheckResult
         }
-        return newBlog(req.body).then(obj => {
+        const body = {
+            title: req.body.title,
+            content: req.body.content,
+            createtime: +new Date(),
+            author: req.session.username
+        }
+        return newBlog(body).then(obj => {
             return new SuccessModel(obj)
         }).catch(err => {
             return new ErrorModel(err)
@@ -50,7 +56,14 @@ const handleBlogRouter = (req, res) => {
         if (loginCheckResult) {
             return loginCheckResult
         }
-        return updateBlog(id, req.body).then(result => {
+        const body = {
+            id: req.body.id,
+            title: req.body.title,
+            content: req.body.content,
+            createtime: +new Date(),
+            author: req.session.username
+        }
+        return updateBlog(body).then(result => {
             if (result) {
                 return new SuccessModel()
             } else {

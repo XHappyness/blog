@@ -2,7 +2,7 @@
   <div>
     <div class="page-name">
       <div>{{pageTitle}}</div>
-      <Button type="primary" @click="toNewBlog" v-if="isMyBlogs">新增博客</Button>
+      <Button type="primary" @click="changeRouter('/blog/new')" v-if="isMyBlogs">新增博客</Button>
     </div>
     <Card>
       <List v-show="tableData.length>0">
@@ -24,13 +24,13 @@
           </ListItemMeta>
           <template slot="action">
             <li v-if="blog.author===userName">
-              <a href>编辑</a>
+              <span class="text-btn" @click="changeRouter(`/blog/update/${blog.id}`)">编辑</span>
             </li>
             <li v-if="blog.author===userName">
               <a href>删除</a>
             </li>
             <li>
-              <span class="text-btn" @click="$router.push(`/blog/detail/${blog.id}`)">详情</span>
+              <span class="text-btn" @click="changeRouter(`/blog/detail/${blog.id}`)">详情</span>
             </li>
           </template>
         </ListItem>
@@ -83,8 +83,8 @@ export default {
     };
   },
   methods: {
-    toNewBlog() {
-      this.$router.push("/config");
+    changeRouter(path) {
+      this.$router.push(path);
     },
     toAuthorPage(author) {
       if (author === this.userName) {

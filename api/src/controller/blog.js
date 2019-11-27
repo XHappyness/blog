@@ -22,8 +22,8 @@ function newBlog(body = {}) {
     return exec(sql).then(insertInfo => ({ id: insertInfo.insertId }))
 }
 
-function updateBlog(id, body = {}) {
-    let sql = `update blogs set title="${body.title}",content="${body.content}" where id=${id}`
+function updateBlog(body = {}) {
+    let sql = `update blogs set title="${body.title}",content="${body.content}" where id=${body.id}`
     return exec(sql).then(updata => {
         if (updata.affectedRows > 0) {
             return true

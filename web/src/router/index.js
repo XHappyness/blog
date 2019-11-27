@@ -36,6 +36,16 @@ const router = new VueRouter(
             path: '/blog/detail/:id',
             name: 'blogDetail',
             component: () => import(/* webpackChunkName: "blogDetail" */ '../views/BlogDetail.vue')
+          },
+          {
+            path: '/blog/new',
+            name: 'blogNew',
+            component: () => import(/* webpackChunkName: "blogNew" */ '../views/BlogEdit.vue')
+          },
+          {
+            path: '/blog/update/:id',
+            name: 'blogUpdate',
+            component: () => import(/* webpackChunkName: "blogUpdate" */ '../views/BlogEdit.vue')
           }
         ]
       }
