@@ -30,8 +30,6 @@ module.exports = {
     runtimeCompiler: true,
     // 这里写你调用接口的基础路径，来解决跨域，如果设置了代理，那你本地开发环境的axios的baseUrl要写为 '' ，即空字符串
     devServer: {
-        // host: 'localhost.icekredit.com',
-        // port: "8080",
         open: true, //配置自动启动浏览器
         proxy: {
             '/': {
