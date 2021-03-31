@@ -180,7 +180,7 @@ export default {
     padding: 0 50px !important;
   }
   .ivu-card {
-    background-color: rgba(255, 255, 255, 0.6);
+    background-color: rgba(255, 255, 255, 0.9);
   }
   .ivu-card-bordered {
     border: 1px solid rgba(255, 255, 255, 0.2);
