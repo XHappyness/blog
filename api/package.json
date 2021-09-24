@@ -1,0 +1,20 @@
+{
+  "name": "block-1",
+  "version": "1.0.0",
+  "description": "study for node",
+  "main": "a.js",
+  "dependencies": {
+    "cross-env": "^6.0.3",
+    "mysql": "^2.17.1",
+    "nodemon": "^1.19.4",
+    "redis": "^2.8.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "cross-env NODE_ENV=dev nodemon ./bin/www.js",
+    "prd": "cross-env NODE_ENV=production nodemon ./bin/www.js"
+  },
+  "author": "xuehaishuang",
+  "license": "ISC"
+}
